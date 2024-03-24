@@ -1,0 +1,11 @@
+spring:
+    application:
+        name: rest
+logging:
+    level:
+        springframework:
+            web:
+                client:
+                    RestTemplate: DEBUG
+        org.apache.http: DEBUG
+        httpclient.wire: DEBUG

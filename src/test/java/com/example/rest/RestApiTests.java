@@ -42,7 +42,7 @@ class RestApiTests {
 		UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder
 				.newInstance()
 				.scheme("http")
-				.host("www.naver.com/smserver")
+				.host("www.naver.com")
 				.path("user")
 				.path("//test")
 				.pathSegment("{id}");
