@@ -29,20 +29,39 @@ public class RestTemplateLoggingRequestInterceptor implements ClientHttpRequestI
 
     private void traceRequest(HttpRequest request, byte[] body) {
         StringBuilder reqLog = new StringBuilder();
+        StringBuilder headerLog = new StringBuilder();
+
+        request.getHeaders()
+                .entrySet()
+                .stream()
+                .forEach((entry) -> {
+                headerLog.append(String.format("%s : %s ",entry.getKey(), entry.getValue())).append("\n");
+                });
+
         reqLog.append("[REQUEST] ================").append("\n")
                 .append("Uri : ").append(request.getURI()).append("\n")
-                .append("Method : ").append(request.getMethod()).append("\n")
-                .append("Body").append("\n").append("\n")
+                .append("Method : ").append(request.getMethod()).append("\n").append("\n")
+                .append("Header").append("\n").append(headerLog.toString()).append("\n")
+                .append("Body").append("\n")
                 .append(new String(body, StandardCharsets.UTF_8)).append("\n");
         System.out.print(reqLog.toString());
     }
 
     private void traceResponse(ClientHttpResponse response, URI uri) throws IOException {
         StringBuilder resLog = new StringBuilder();
+        StringBuilder headerLog = new StringBuilder();
+        response.getHeaders()
+                .entrySet()
+                .stream()
+                .forEach((entry) -> {
+                    headerLog.append(String.format("%s : %s ",entry.getKey(), entry.getValue())).append("\n");
+                });
+
         resLog.append("[RESPONSE] ===============").append("\n")
                 .append("Uri : ").append(uri).append("\n")
-                .append("Status code : ").append(response.getStatusCode()).append("\n")
-                .append("Body").append("\n").append("\n")
+                .append("Status : ").append(response.getStatusCode()).append("\n").append("\n")
+                .append("Header").append("\n").append(headerLog.toString()).append("\n")
+                .append("Body").append("\n")
                 .append(StreamUtils.copyToString(response.getBody(), StandardCharsets.UTF_8)).append("\n");
         System.out.println(resLog.toString());
     }

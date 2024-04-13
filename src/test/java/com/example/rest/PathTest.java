@@ -10,7 +10,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 //@SpringBootTest
-class RestApiTests {
+class PathTest {
 
 	private final RestTemplate restTemplate = new RestTemplate();
 
@@ -68,33 +68,6 @@ class RestApiTests {
 		System.out.println("uri2 = " + uri2);
 		System.out.println("uri3 = " + uri3);
 	}
-
-	@Test
-	public void restApi() {
-
-		URI uri = UriComponentsBuilder
-//				.newInstance()
-//				.scheme("https")
-//				.host("jsonplaceholder.typicode.com")
-//				.port(443)
-				.fromUriString("https://jsonplaceholder.typicode.com")
-				.pathSegment("users", "1")
-				.build().toUri();
-
-		RequestEntity<Void> requestEntity = RequestEntity.get(uri)
-				.build();
-		ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
-//		ResponseEntity<Map> response = restTemplate.exchange(requestEntity, Map.class);
-		System.out.println("================== Headers ================");
-		response.getHeaders()
-				.entrySet()
-				.stream().forEach(entry -> {
-					System.out.println(String.format("%s : %s ", entry.getKey(), entry.getValue()));
-				});
-		System.out.println("==================================");
-		System.out.println("response.getBody() = " + response.getBody());
-	}
-
 }
 
 
